@@ -11,9 +11,10 @@ const Register = ({ user, setUser }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    //if (email && password) {
-    /* try {
-        const { data: userDoc } = await axios.post("/users/login", {
+    if (email && password && name) {
+      try {
+        const { data: userDoc } = await axios.post("/users", {
+          name,
           email,
           password,
         });
@@ -21,11 +22,11 @@ const Register = ({ user, setUser }) => {
         setUser(userDoc);
         setRedirect(true);
       } catch (error) {
-        alert(`Deu um erro ao logar: ${error.response.data}`);
+        alert(`Erro ao cadastrar usuário: ${JSON.stringify(error)}`);
       }
     } else {
-      alert("Você precisa preencher o e-mail e a senha!");
-    } */
+      alert("Você precisa preencher o e-mail, o nome e a senha!");
+    }
   };
 
   if (redirect || user) return <Navigate to="/" />;
@@ -59,7 +60,7 @@ const Register = ({ user, setUser }) => {
           />
 
           <button className="bg-primary-400 w-full cursor-pointer rounded-full border border-gray-300 px-4 py-2 font-bold text-white">
-            Registrat
+            Registrar
           </button>
         </form>
 
