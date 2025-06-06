@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
+import { useUserContext } from "../contexts/UserContext";
 
-const Register = ({ user, setUser }) => {
+const Register = () => {
+  const { setUser } = useUserContext();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,19 +24,19 @@ const Register = ({ user, setUser }) => {
         setUser(userDoc);
         setRedirect(true);
       } catch (error) {
-        alert(`Erro ao cadastrar usuário: ${JSON.stringify(error)}`);
+        alert(`Deu um erro ao cadastrar o usuário: ${JSON.stringify(error)}`);
       }
     } else {
       alert("Você precisa preencher o e-mail, o nome e a senha!");
     }
   };
 
-  if (redirect || user) return <Navigate to="/" />;
+  if (redirect) return <Navigate to="/" />;
 
   return (
     <section className="flex items-center">
       <div className="mx-auto flex w-full max-w-96 flex-col items-center gap-4">
-        <h1 className="text-3xl font-bold">Faça seu Cadastro</h1>
+        <h1 className="text-3xl font-bold">Faça seu cadastro</h1>
 
         <form className="flex w-full flex-col gap-2" onSubmit={handleSubmit}>
           <input
